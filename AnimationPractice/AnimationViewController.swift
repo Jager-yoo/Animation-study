@@ -13,7 +13,8 @@ class AnimationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        yagomImageView.layer.borderWidth = 1
+        yagomImageView.layer.borderColor = UIColor.opaqueSeparator.cgColor
     }
     
     @IBAction func yagomEncounterErrorTapped(_ sender: UIButton) {
@@ -40,7 +41,16 @@ class AnimationViewController: UIViewController {
     }
     
     @IBAction func yagomBuyNewMacTapped(_ sender: UIButton) {
-        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse]) {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                    self.yagomImageView.transform = CGAffineTransform(scaleX: 1.6, y: 1)
+                }
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                    self.yagomImageView.transform = CGAffineTransform(scaleX: 1, y: 1.6)
+                }
+            }
+        }
     }
     
     @IBAction func yagomCustomTapped(_ sender: UIButton) {
@@ -49,6 +59,7 @@ class AnimationViewController: UIViewController {
     
     @IBAction func yagomAnimationStopTapped(_ sender: UIButton) {
         yagomImageView.layer.removeAllAnimations()
+        yagomImageView.transform = .identity
     }
 }
 
